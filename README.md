@@ -3,7 +3,13 @@
 **Author Name** : Zaid izzelddne
 
 ## WRRC 
+
+### without using 3rd party api
 ![](./asset/DocScanner%2020%20Jun%202023%2010-16%20pm.jpg)
+
+### requisting from 3rd party API (wrrc)
+![](./asset/DocScanner%2022%20Jun%202023%2011-09%20pm.jpg)
+
 
 ## Overview:
 
@@ -14,7 +20,13 @@ please follow below steps
 
 
 ## Project Features
-### threre are 3 routes that specify particular rendering resources 
+### * threre are 3 routes that specify particular rendering resources 
+### * (and there are more routes responisble for some events after connecting to 3rd party API)
 ### 1- (/) for home page rendering object
 ### 2- (/favorite) welcoming message
 ### 3- if you request any other route for now , there will be an 404 error.
+### 4- (/trending) to get response of trending object movie comes from API server.
+### 5- (/search) to search about specific object by its title and rendering this object 
+
+
+ ** important note : for requesting from this route (/search) you have to enter 2 query strings to spicify the movie you want to get info for it **
