@@ -27,6 +27,8 @@ please follow below steps
 ### 3- if you request any other route for now , there will be an 404 error.
 ### 4- (/trending) to get response of trending object movie comes from API server.
 ### 5- (/search) to search about specific object by its title and rendering this object 
+### 6- (/popular) to get all popular movies in market
+### 7- (/genere) to fetch all genere of movies and theire id
 
 
- ** important note : for requesting from this route (/search) you have to enter 2 query strings to spicify the movie you want to get info for it **
+ 
