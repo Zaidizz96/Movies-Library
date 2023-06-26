@@ -8,9 +8,37 @@ const app = expressLib();
 const axios = require("axios");
 require("dotenv").config();
 
+const pg = require("pg");
+
 let cors = require("cors");
 
 app.use(cors());
+app.use(expressLib.json())
+
+
+const dbURL = process.env.DATABASE_URL;
+const dbClient = new pg.Client(dbURL);
+
+app.post("/addMovie", (req, res) => {
+    let { moviesID, title, release_date, overview } = req.body;
+    let query = 'insert into tb_movies(movie_id , title , release_date , overview ) values($1 ,$2 ,$3 ,$4)';
+   
+    dbClient.query(query, [moviesID, title, release_date, overview]).then(() => {
+        res.status(201).send(`movie ${title} added to database`);
+    });
+});
+
+app.get("/getMovies",(req,res) => {
+    let query = "select * from tb_movies ;";
+
+    dbClient.query(query).then((result) => {
+        res.status(200).send(result.rows);
+    }).catch((error) => {
+        console.log(error);
+    });
+});
+
+
 
 app.get("/", handleObject); // rendering
 
@@ -31,7 +59,7 @@ app.get("/trending", async (req, res) => {
             });
         })
         .catch(function (error) {
-            handleServerError(error,req,res,null);
+            handleServerError(error, req, res, null);
         });
 
     res.send(resultMovie);
@@ -40,7 +68,7 @@ app.get("/trending", async (req, res) => {
 app.get("/search", async (req, res) => {
     var queryParam = req.query;
     var apiKey = process.env.apiKey;
-    var movieName = queryParam.movieName ;
+    var movieName = queryParam.movieName;
 
     let resultMovie = [];
 
@@ -57,7 +85,7 @@ app.get("/search", async (req, res) => {
             });
         })
         .catch(function (error) {
-            handleServerError(error,req,res,null);
+            handleServerError(error, req, res, null);
         });
 
     res.send(resultMovie);
@@ -78,7 +106,7 @@ app.get("/genre", async (req, res) => {
             });
         })
         .catch(function (error) {
-            handleServerError(error,req,res,null);
+            handleServerError(error, req, res, null);
         });
 
     res.send(genresArr);
@@ -99,7 +127,7 @@ app.get("/popular", async (req, res) => {
             });
         })
         .catch(function (error) {
-            handleServerError(error,req,res,null);
+            handleServerError(error, req, res, null);
         });
 
     res.send(resultMovie);
@@ -166,4 +194,6 @@ function formatMovie(movie) {
     return movieObject;
 }
 
-app.listen(3000, startingLog); // logging
+dbClient.connect().then(() => {
+    app.listen(3000, startingLog);
+})// logging
