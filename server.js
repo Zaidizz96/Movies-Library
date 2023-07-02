@@ -38,9 +38,9 @@ app.get("/trending", async (req, res) => {
 });
 
 app.get("/search", async (req, res) => {
-    var queryParam = req.query;
-    var apiKey = process.env.apiKey;
-    var movieName = queryParam.movieName ;
+    let movieName = req.query.query; // please read the (readme file)
+    let apiKey = process.env.apiKey;
+     
 
     let resultMovie = [];
 
