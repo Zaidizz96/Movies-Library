@@ -20,10 +20,10 @@ const dbURL = process.env.DATABASE_URL;
 const dbClient = new pg.Client(dbURL);
 
 app.post("/addMovie", (req, res) => {
-    let { moviesID, title, release_date, overview } = req.body;
-    let query = 'insert into tb_movies(movie_id , title , release_date , overview ) values($1 ,$2 ,$3 ,$4)';
+    let { moviesID, title, release_date, overview , comment } = req.body;
+    let query = 'insert into tb_movies(movie_id , title , release_date , overview , comments ) values($1 ,$2 ,$3 ,$4 ,$5)';
    
-    dbClient.query(query, [moviesID, title, release_date, overview]).then(() => {
+    dbClient.query(query, [moviesID, title, release_date, overview , comment]).then(() => {
         res.status(201).send(`movie ${title} added to database`);
     });
 });
@@ -38,6 +38,29 @@ app.get("/getMovies",(req,res) => {
     });
 });
 
+app.put("/UPDATE/:id" , (req , res) => {
+    let {comment} = req.body
+    let query = `update tb_movies set comments=$1 where id=${req.params.id}`
+    dbClient.query(query , [comment]).then((result) => {
+        res.status(200).send("comment updated")
+    })
+})
+
+app.delete("/DELETE/:id" , (req ,res) => {
+    req.params;
+    let query = `DELETE FROM tb_movies WHERE id = ${req.params.id}`;
+    dbClient.query(query).then((result) => {
+        res.status(204).end();
+    })
+})
+
+app.get("/getMovie/:id" , (req ,res) => {
+    req.params;
+    let query = `SELECT * FROM tb_movies WHERE id= ${req.params.id}`;
+    dbClient.query(query).then((result) => {
+        res.status(200).send(result.rows);
+    })
+})
 
 
 app.get("/", handleObject); // rendering
