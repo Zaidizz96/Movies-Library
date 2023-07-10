@@ -1,5 +1,3 @@
-
-
 create table if not exists tb_movies(
   id serial primary key,
   movie_id integer,
