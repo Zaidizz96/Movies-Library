@@ -11,7 +11,7 @@ Router.get("/trending", async (req, res, next) => {
         var apiKey = process.env.apiKey;
         var config = {
             method: 'get',
-            url: `https://api.themoviedb.org/3/trendin/all/week?api_key=${apiKey}`,
+            url: `https://api.themoviedb.org/3/trending/all/week?api_key=${apiKey}`,
             headers: {}
         };
         let resultMovie = [];
