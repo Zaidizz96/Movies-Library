@@ -13,7 +13,7 @@ const localRoutes = require("./routers/local_routes");
 const {handleServerError, handleNotFound} = require("./config/error");
 
 app.use(cors());
-app.use(expressLib.json())
+app.use(expressLib.json());
 app.use(dbRoutes);
 app.use(apiRoutes);
 app.use(localRoutes);
