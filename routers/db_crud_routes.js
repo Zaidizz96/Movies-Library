@@ -6,10 +6,10 @@ const Router = express.Router();
 
 Router.post("/addMovie", (req, res) => {
     try {
-        let { moviesID, title, release_date, overview, comment } = req.body;
-        let query = 'insert into tb_movies(movie_id , title , release_date , overview , comments ) values($1 ,$2 ,$3 ,$4 ,$5)';
+        let { moviesID, title, release_date, overview, comment,image_url } = req.body;
+        let query = 'insert into tb_movies(movie_id , title , release_date , overview , comments,image_url ) values($1 ,$2 ,$3 ,$4 ,$5,$6)';
 
-        dbClient.query(query, [moviesID, title, release_date, overview, comment]).then(() => {
+        dbClient.query(query, [moviesID, title, release_date, overview, comment,image_url]).then(() => {
             res.status(201).send(`movie ${title} added to database`);
         });
     } catch (error) {
